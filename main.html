@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+    <link href="style-main.css" rel="stylesheet">
+    <title>VAT & TAX Calculator</title>
+
+</head>
+
+<body onload="onLoadFunc()">
+
+<div id="mother-container">
+    <div id="main-container">
+
+        <h2 id="welcome">Welcome!</h2>
+
+        <!-- <a id="button-back" onclick="myFunctionPush()">Push</a> -->
+
+    <div class="user-input">
+        <div class="align-through">
+            <label class="label" for="qty-name">Qty</label>
+            <input class="new-set-one input input-inv" id="new-qty"  type="number" name="qty_name" oninput="funcCalQty()" autofocus>
+        </div>
+
+        <div class="align-through">
+            <label class="label" for="unit-name">Unit</label>
+            <select class="new-set-one-s input input-inv" id="new-unit"  type="text" name="unit_name">
+                <option></option>
+                <option>EA</option>
+                <option>Job</option>
+                <option>MT</option>
+                <option>KG</option>
+                <option>Ltr</option>
+                <option>FT</option>
+                <option>Mtr</option>
+                <option>RFT</option>
+                <option>CFT</option>
+                <option>Bag</option>
+                <option>Box</option>
+            </select>
+        </div>  
+
+        <div class="align-through">
+            <label class="label" for="unit-name">Rate</label>
+            <input class="new-set-two input input-inv" id="new-rate"  type="number" name="rate_name" oninput="funcCalInv()">
+        </div>
+        
+        <div class="align-through">
+            <label class="label" for="inv-amount-name">Invoice Amount</label>
+            <input class="new-set-three input input-inv" id="inv-amount"  type="number" name="inv-amount-name" min="0" max="100000000" step="0.00" onkeydown="funcCalInvClear()">
+        </div>
+    </div>  
+
+        <div id="container-sub-chk">
+            <div id="three">
+                <label class="label-chk" for="chk-tax-name">Including TAX</label>
+                <input class="input-chk" id="chk-tax" class="chk-field" type="checkbox" name="chk-tax-name">
+            </div>
+            <div id="four">
+                <label class="label-chk" for="chk-vat-name">Including VAT</label>
+                <input class="input-chk" id="chk-vat" class="chk-field" type="checkbox" name="chk-vat-name">
+            </div>
+        </div>
+
+        <div id="div-one">
+            <label class="label" for="rate-tax-name">TAX Rate (in %)</label>
+            <select class="input" id="rate-tax" class="common-field" type="number" name="rate-tax-name">
+                <option class="select" selected>select</option>
+                <option>3</option>
+                <option>5</option>
+            </select>                
+        </div>
+
+        <div id="div-two">
+            <label class="label" for="rate-vat-name">VAT Rate (in %)</label>
+            <select class="input" id="rate-vat" class="common-field" type="number" name="rate-vat-name"> 
+                <option class="select" selected>select</option>
+                <option>5</option>
+                <option>7.5</option>
+                <option>10</option>
+                <option>15</option>
+            </select>                               
+        </div>
+
+        <form id="form-submit">
+            <input id="button" type="submit">
+        </form>
+
+        <!-- output start -->
+
+        <div id="five">
+            <div id=five-sub-one>
+                <label for="amnt-tax-name">Tax Amount -</label>
+            </div>
+            <div id=five-sub-two>
+                <input id="amnt-tax" class="common-field" type="text" name="amnt-tax-name" readonly>
+            </div>
+        </div>
+
+        
+        <div id="five-sub">
+            <div id="five-sub-one">
+                <label for="amnt-tax-name-one">Amnt incl. Tax (base value) -</label>
+            </div>
+            <div id="five-sub-two">
+                <input id="amnt-tax-one" class="common-field-one" type="text" name="amnt-tax-name-one" readonly>
+            </div>
+        </div>
+        
+        <div id="six">
+            <div id="six-sub-one">
+                <label for="amnt-vat-name">VAT Amount (mushok) -</label>
+            </div>
+            <div id="six-sub-two">
+                <input id="amnt-vat" class="common-field" type="text" name="amnt-vat-name" readonly>
+            </div>
+        </div>  
+
+        <div id="seven">
+            <label for="amnt-final-name">Final Amount -</label>
+        </div>
+        <div id="eight">
+            <input id="amnt-final" class="common-field" type="text" name="amnt-final-name" readonly>
+        </div>
+
+        <p id="text_final">.</p>
+
+        <a id="button-back" href="index.html" onclick="myFunc()">Logout</a> 
+        <a id="button-back" onclick="myFunction()">Reset</a>
+        
+    </div>
+
+    <!-- ---------------------------------------------------------------------- -->
+    <!-- right-side panel -->
+    <!-- ---------------------------------------------------------------------- -->
+
+    <div id="container-right">
+        <br>
+        <h2 id="right-header">Detail calculation</h2>
+
+    <div id="user-ins">        
+        <div id="user-ins-lines">
+            <h4 class="user-ins-line">- Please fill "Qty", "Unit" and "Rate" fields to automatically populate "Invoice Amount" field.</h4>
+            <h4 class="user-ins-line">- Alternativel, you can only fill the "Invoice Amount" field to calculate directly. This will emptied out "Qty" and "Rate" field instantly.</h4>
+            <h4 class="user-ins-line">- Select "Including Tax" and/or "Including Vat" checkbox as per the requirement along with respective rates in percent.</h4>
+            <h4 class="user-ins-line">- Press "Enter" or "Submit" button to initiate the calculation.</h4>
+            <h4 class="user-ins-line">- Once submitted the right side panel will populate to show detail calculation and breakdown.</h4>
+            <h4 class="user-ins-line">- To emptied out all of the fields press "Reset" button, press "Logout" to exit the application.</h4>
+            <h4 class="user-ins-line">- This is a web base application and multiple user can access the same platform from anywhere even from mobile devices.</h4>      
+        </div>
+        <div>
+            <hr id="straight-line-bottom" >
+            <h4 id="user-ins-line-bottom">any query/suggestion tell it to the developer at ahsan.myinfo@gmail.com</h4>
+        </div>
+    </div>
+
+<div id="main-container-table">
+        
+<!-- VAT-TAX Not added -->
+
+    <table id="table" style="width:1500px">
+            
+            <tr>
+                <td class="main-header">As seen in the invoice -</td>
+            </tr>
+
+            <tr>
+                <th class="pName-header length-head">Product/Service</th>
+                <th class="header length-qty">Qty</th>
+                <th class="header length-unit">Unit</th>
+                <th class="header length-rate">Rate</th>
+                <th class="header length-amnt">Amount</th>
+                <th class="header length-rem">Remarks</th>
+            </tr>
+
+            <tr>
+                <td class="pName" class="length-head-one">Name of the product/service</td>
+                <td><input id="qty-feed" type="text" readonly></td>
+                <td><input id="unit-feed" type="text" readonly></td>
+                <td><input id="rate-feed" type="text" readonly></td>
+                <td><input id="amnt-feed" type="text" readonly></td>
+                <td class="remarks" readonly>Excluding Vat & Tax</td>
+            </tr>
+
+            <tr>
+                <td colspan="3">Tax Amount</td>
+                <td class="rate-border-left"><input id="rateTax-feed" type="number" readonly>%</td>
+                <td><input id="amntTax-feed" type="text" readonly></td>
+                <th></th>             
+            </tr>
+
+            <tr>
+                <td colspan="4">Amount (incl. Tax)</td>
+                <td><input id="amntInclTax-feed" type="text" readonly></td>
+                <th></th>             
+            </tr>
+
+            <tr>
+                <td colspan="3">Vat Amount (mushok 6.3)</td>
+                <td class="rate-border-left"><input id="rateVat-feed" type="number" readonly>%</td>
+                <td><input id="amntVat-feed" type="text" readonly></td> 
+                <td class="remarks">Mushok challan amount</td>             
+            </tr>
+
+            <tr class="last-line">
+                <td colspan="4" style="font-weight: bold;">Total (incl Vat & Tax)</td>
+                <td><input id="amntTot-feed" type="text" style="font-weight: bold;" readonly></td>
+                <th></th>             
+            </tr>   
+
+        </table>
+
+    </div>
+
+<!-- VAT-TAX added -->
+   
+
+<div id="main-container-table-opt2">
+    
+        
+        <table id="table-opt2" style="width:1500px">
+
+            <tr>
+                <td class="main-header">As seen in the invoice -</td>
+            </tr>
+
+            <tr>
+                <th class="pName-header length-head" >Product/Service</th>
+                <th class="header length-qty">Qty</th>
+                <th class="header length-unit">Unit</th>
+                <th class="header length-rate">Rate</th>
+                <th class="header length-amnt">Amount</th>
+                <th class="header length-rem">Remarks</th>
+
+            </tr>
+
+            <tr>
+                <td class="pName">Name of the product/service</td>
+                <td><input id="qty-feed-opt2" type="text" readonly></td>
+                <td><input id="unit-feed-opt2" type="text" readonly></td>
+                <td><input id="rate-feed-opt2" type="text" readonly></td>
+                <td><input id="amnt-feed-opt2" type="text" readonly></td>
+                <td class="remarks">Including Vat & Tax</td>
+            </tr>
+
+            <tr>
+                <td colspan="3">Tax Amount</td>
+                <td class="rate-border-left"><input id="rateTax-feed-opt2" type="number" readonly>%</td>
+                <td><input id="amntTax-feed-opt2" type="text" readonly></td>  
+                <th></th>           
+            </tr>
+
+            
+            <tr>
+                <td colspan="3">Vat Amount (mushok 6.3)</td>
+                <td class="rate-border-left"><input id="rateVat-feed-opt2" type="number" readonly>%</td>
+                <td><input id="amntVat-feed-opt2" type="text" readonly></td>  
+                <td class="remarks">Mushok challan amount</td>           
+            </tr>
+
+            <tr>
+                <td colspan="4">Total (Vat + Tax) amount</td>
+                <td><input id="totVatTax-feed-opt2" type="text" readonly></td>
+                <th></th>             
+            </tr>
+
+            <tr class="last-line">
+                <td colspan="4" style="font-weight: bold;">Total (Excluding Vat & Tax)</td>
+                <td><input id="amntTot-feed-opt2" type="text" style="font-weight: bold;" readonly></td>
+                <th></th>             
+            </tr>
+
+        </table>
+
+    </div>
+
+    <!-- TAX added / Vat not added -->
+    
+
+<div id="main-container-table-opt3">
+        
+        <table id="table-opt3" style="width:1500px">
+
+            <tr>
+                <td class="main-header">As seen in the invoice -</td>
+            </tr>
+
+            <tr>
+                <th class="pName-header length-head" >Product/Service</th>
+                <th class="header length-qty">Qty</th>
+                <th class="header length-unit">Unit</th>
+                <th class="header length-rate">Rate</th>
+                <th class="header length-amnt">Amount</th>
+                <th class="header length-rem">Remarks</th>
+
+            </tr>
+
+            <tr>
+                <td class="pName">Name of the product/service</td>
+                <td><input id="qty-feed-opt3" type="text" readonly></td>
+                <td><input id="unit-feed-opt3" type="text" readonly></td>
+                <td><input id="rate-feed-opt3" type="text" readonly></td>
+                <td><input id="amnt-feed-opt3" type="text" readonly></td>
+                <td class="remarks">Incl. Tax/Excl. Vat</td>
+            </tr>
+
+            <tr>
+                <td colspan="3">Tax amount (added with invoice amount)</td>
+                <td class="rate-border-left"><input id="rateTax-feed-opt3" type="number" readonly>%</td>
+                <td><input id="amntTax-feed-opt3" type="text" readonly></td>
+                <th></th>             
+            </tr>
+
+            
+            <tr>
+                <td colspan="3">Vat Amount (mushok 6.3)</td>
+                <td class="rate-border-left"><input id="rateVat-feed-opt3" type="number" readonly>%</td>
+                <td><input id="amntVat-feed-opt3" type="text" readonly></td>  
+                <td class="remarks">Mushok challan amount</td>           
+            </tr>
+
+
+            <tr class="last-line">
+                <td colspan="4" style="font-weight: bold;">Total (Including Tax & Vat)</td>
+                <td><input id="amntTot-feed-opt3" type="text" style="font-weight: bold;" readonly></td>
+                <th></th>           
+            </tr>
+
+        </table>
+
+    </div>
+
+    <br>
+        
+    <!-- no VAT-TAX added -->
+        <div id="con-1">
+
+            <p class="main-header-detals">Breakdown of individual lines</p>
+            <hr id="straight-line" >
+            <br>
+
+            <label for="name_tax">Tax amount ,</label>
+            <input id="tax" class="short_field" type="text" name="name_tax" readonly>
+
+            <span class="allsign">&MediumSpace; = &MediumSpace;</span>
+            <span class="allsign">(</span>
+
+            <label for="name_invValue">Inv value ,</label>
+            <input id="invValue" class="long_field" type="text" readonly>
+
+            <span class="allsign">&MediumSpace; &times; &MediumSpace;</span>
+
+            <label for="name_ratTax">Tax rate ,</label>
+            <input id="ratTax-one" class="short_field" type="number" name="name_ratTax" readonly>
+            <span class="allsign">&percnt;</span>
+            <span class="allsign">)</span>
+
+            <span class="allsign">&MediumSpace; &divide; &MediumSpace;</span>
+
+            <span class="allsign">(</span>
+            <span class="allsign">100</span>
+            <span class="allsign">&MediumSpace; - &MediumSpace;</span>
+
+            <label for="name_ratTax-1">Tax rate ,</label>
+            <input id="ratTax-two" class="short_field" type="number" name="name_ratT-1" readonly>
+            <span class="allsign">&percnt;</span>
+
+            <span class="allsign">)</span>
+
+            <br>
+            <br>
+
+            <label for="name_tax">Amount incl Tax (base value) ,</label>
+            <input id="tax_one" class="short_field" type="text" name="name_tax" readonly>
+
+            <span class="allsign">&MediumSpace; = &MediumSpace;</span>
+
+            <label for="name_invAmnt">Inv amount ,</label>
+            <input id="inv_amnt_one" class="short_field" type="text" name="name_invAmnt" readonly>
+
+            <span class="allsign">&MediumSpace; + &MediumSpace;</span>
+
+            <label for="name_ratTax_one">Tax amount ,</label>
+            <input id="rat_tax_one" type="text" name="name_ratTax_one" readonly>
+            
+
+            <br>
+            <br>
+
+            <label for="name_vatAmnt_one">Vat amount ,</label>
+            <input id="vatAmnt_one" class="short_field" type="text" name="vatAmnt_one" readonly>
+
+            <span class="allsign">&MediumSpace; = &MediumSpace;</span>
+
+            <label for="name_baseVal_one">Base value ,</label>
+            <input id="baseVal_one" class="short_field" type="text" name="name_baseVal_one" readonly>
+
+            <span class="allsign">&MediumSpace; &times; &MediumSpace;</span>
+
+            <label for="name_ratVat_one">Vat rate ,</label>
+            <input id="rat_rateVat_one" type="text" name="name_ratVat_one" readonly>
+            <span class="allsign">&percnt;</span>
+
+            <br>
+            <br>
+
+            <label for="name_incl_vattax">Vat & Tax incl amount ,</label>
+            <input id="incl_vattax" class="short_field" type="text" name="name_incl_vattax" readonly>
+
+            <span class="allsign">&MediumSpace; = &MediumSpace;</span>
+
+            <label for="name_incl_baseVal">Base value ,</label>
+            <input id="incl_baseVal" class="short_field" type="text" name="name_incl_baseVal" readonly>
+
+            <span class="allsign">&MediumSpace; + &MediumSpace;</span>
+
+            <label for="name_incl_vatAmnt">Vat amount ,</label>
+            <input id="incl_vatAmnt" type="text" name="name_incl_vatAmnt" readonly> 
+            
+        </div>
+
+        <br>
+    <!-- both VAT-TAX added -->
+        <div id="con-2">
+
+            <p class="main-header-detals">Breakdown of individual lines</p>
+            <hr id="straight-line" >
+            <br>
+
+            <label for="name_vatAmnt">First, Vat amount ,</label>
+            <input id="vat_amnt" type="text" name="name_vatAmnt" readonly>
+
+            <span class="allsign">&MediumSpace; = &MediumSpace;</span>
+
+
+
+            <span class="allsign">(</span>
+
+            <label for="name_invAmnt">Inv amount ,</label>
+            <input id="inv_amnt" type="text" name="name_invAmnt" readonly>
+
+            <span class="allsign">&MediumSpace; &times; &MediumSpace;</span>
+
+            <label for="name_ratVat">Vat rate ,</label>
+            <input id="rat_vat" type="text" name="name_ratVat" readonly>
+            <span class="allsign">&percnt;</span>
+
+            <span class="allsign">)</span>
+            <span class="allsign">&MediumSpace; &divide; &MediumSpace;</span>
+            
+            <span class="allsign">(</span>
+            <span class="allsign">&MediumSpace; 100</span>
+
+            <span class="allsign">&MediumSpace; + &MediumSpace;</span>
+
+            <label for="name_ratVat-two">Vat rate ,</label>
+            <input id="rat_vat-two" type="text" name="name_ratVat-two" readonly>
+            <span class="allsign">&percnt;</span>
+
+            <span class="allsign">)</span>
+
+            <br>
+            <br>
+            
+
+            <!-- next line -->
+            <span>So, Amount excluding Vat (base value) ,</span>
+            <input id="vat-amnt-three" type="text" name="name_vatAmnt-two" readonly>
+
+            <span class="allsign">&MediumSpace; = &MediumSpace;</span>
+
+
+            <label for="name_invAmnt-two">Inv amount ,</label>
+            <input id="inv_amnt-two" type="text" name="name_invAmnt-two" readonly>
+
+            <span class="allsign">&MediumSpace; - &MediumSpace;</span>
+
+            <label for="name_baseVal">Vat amount ,</label>
+            <input id="vat-amnt-two" type="text" name="name_baseValue" readonly>
+            
+            <br>
+            <br>
+
+            <!-- next line -->
+            <span>Now, Tax amount ,</span>
+            <input id="tax_amnt-five" type="text" readonly>
+
+            <span class="allsign">&MediumSpace; = &MediumSpace;</span>
+
+            <label for="name_baseVal-two">Base value ,</label>
+            <input id="base_value" type="text" name="name_baseVal-two" readonly>
+
+            <span class="allsign">&MediumSpace; &times; &MediumSpace;</span>
+
+            <label for="name_rateTax-three">Tax rate ,</label>
+            <input id="rat_tax-three" type="text" name="name_rateTax-three" readonly>
+
+            <span class="allsign">&percnt;</span>
+
+            <br>
+            <br>
+
+            <!-- NEW -->
+
+            <span>Finally, Supplier take home amount ,</span>
+            <input id="tax_amnt-five_2" type="text" readonly>
+
+            <span class="allsign">&MediumSpace; = &MediumSpace;</span>
+
+            <label for="name_baseVal-two">Inv value ,</label>
+            <input id="base_value_2" type="text" name="name_baseVal-two" readonly>
+
+            <span class="allsign">&MediumSpace; - &MediumSpace;</span>
+            <span class="allsign">&MediumSpace; (</span>
+
+            <label for="name_rateTax-three">Vat amount ,</label>
+            <input id="rat_tax-three_2" type="text" name="name_rateTax-three" readonly>
+
+            <span class="allsign">&MediumSpace; + &MediumSpace;</span>
+
+            <label for="name_rateTax-three">Tax amount ,</label>
+            <input id="rat_tax-three_3" type="text" name="name_rateTax-three" readonly>
+
+            <span class="allsign">)</span>
+
+            <br>
+            <br>
+
+        </div>  
+
+
+        <br>
+    <!-- TAX added / VAT not added -->
+        <div id="con-3">
+
+            <p class="main-header-detals">Breakdown of individual lines</p>
+            <hr id="straight-line" >
+            <br>
+            
+            <label for="name_baseVal">Tax incl. amount (base value) ,</label>
+            <input id="base_val" type="text" name="name_baseVal" readonly>
+
+            <span class="allsign">&MediumSpace; = &MediumSpace;</span>
+
+            <label for="name_invAmnt_final">Inv Amount ,</label>
+            <input id="inv_amnt_final" type="text" name="name_invAmnt_final" readonly>
+            <span class="allsign">(as Tax already incl with invoice value)</span>
+            
+            <br>
+            <br>
+                
+
+            <!-- next line-->
+            <label for="name_taxAmnt_final">Tax Amount ,</label>
+            <input id="tax_amnt_final_one" type="text" name="name_taxAmnt_final" readonly>
+
+            <span class="allsign">&MediumSpace; = &MediumSpace;</span>
+
+
+            <label for="name_invAmnt_final_one">Inv Amount ,</label>
+            <input id="inv_amnt_final_one" type="text" name="name_invAmnt_final" readonly>
+
+            <span class="allsign">&MediumSpace; &times; &MediumSpace;</span>
+
+
+            <label for="name_rateTax_final_one">Tax Rate ,</label>
+            <input id="rate_tax_final_one" type="text" name="name_rateTax_final_one" readonly>
+            <span class="allsign">&percnt;</span>
+
+            <br>
+            <br>
+
+            <!-- NEW line-->
+            <label for="name_taxAmnt_final_1">Vat amount ,</label>
+            <input id="vattax_incl_1" type="text" name="name_vattax_incl_1" readonly>
+
+            <span class="allsign">&MediumSpace; = &MediumSpace;</span>
+
+
+            <label for="name_invAmnt_base_1">Inv amount/Base value ,</label>
+            <input id="inv_amnt_base_1" type="text" name="name_invAmnt_base_1" readonly>
+
+            <span class="allsign">&MediumSpace; &times; &MediumSpace;</span>
+
+
+            <label for="name_vatAmnt_fin_1">Vat rate ,</label>
+            <input id="vat_amnt-fin_1" type="text" name="name_vatAmnt_fin_1" readonly>
+            <span class="allsign">&percnt;</span>
+
+            <br>
+            <br>
+
+            <!-- next line-->
+            <label for="name_taxAmnt_final">Vat & Tax incl. Amount ,</label>
+            <input id="vattax_incl" type="text" name="name_vattax_incl" readonly>
+
+            <span class="allsign">&MediumSpace; = &MediumSpace;</span>
+
+
+            <label for="name_invAmnt_base">Inv Amount/Base Value ,</label>
+            <input id="inv_amnt_base" type="text" name="name_invAmnt_base" readonly>
+
+            <span class="allsign">&MediumSpace; + &MediumSpace;</span>
+
+
+            <label for="name_vatAmnt_fin">Vat amount ,</label>
+            <input id="vat_amnt-fin" type="text" name="name_vatAmnt_fin" readonly>
+
+            <br>
+            <br>
+
+            
+        </div>  
+
+    </div>
+    
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <script src="app-main.js"></script>
+
+    
+</body>
+</html>

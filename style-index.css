@@ -1,0 +1,132 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    background-image: url(img/img-01.jpg);
+    /* background-color: cadetblue; */
+    background-size: cover;
+}
+
+#main-container {
+    width: 300px;
+    height: 400px;
+    background-color: rgb(236, 236, 236);
+    /* margin: 100px auto auto 300px; */
+    border-radius: 7px;
+    box-shadow: 0px 0px 20px rgb(41, 41, 41);
+}
+
+#sub-container {
+    
+    padding: 20px 0;
+    text-align: center;   
+    margin-right: 12px;
+}
+
+#sub-cont-userid {
+    width: 250px;   
+    background-color: aquamarine;
+    margin: 0 auto;
+}
+
+#user-id, #password {
+    width: 200px;
+    height: 20px;
+    padding: 5px;
+    margin: 5px 0;
+    display: block;
+    border-top-style: hidden;
+    border-right-style: hidden;
+    border-left-style: hidden;
+    border-bottom-style: groove;
+    border-bottom: 1px solid grey;
+    background-color: rgb(219, 219, 219);
+    font-family: 'Open Sans', sans-serif;
+    font-size: 14px; 
+}
+
+#label-userid {
+    margin-left: 40px;
+    color:rgb(65, 65, 65);
+    font-size: 14px;
+}
+
+#input-userid {
+    margin: 0 40px;
+}
+
+#label-password {
+    margin-left: 40px;
+    margin-top: 15px;
+    color:rgb(65, 65, 65);
+    font-size: 14px;
+}
+
+#input-password {
+    margin: 0 40px;
+}
+
+#button {
+    margin: 0 40px;   
+}
+
+#button-submit {
+    width: 212px;
+    height: 35px;
+    background-color:rgb(208, 167, 255);   
+    border: 0;
+    border-radius: 2px;
+    margin: 30px 0;
+    font-size: 13px;
+}
+
+#user-id:focus {
+    outline: 0;
+}
+
+#password:focus {
+    outline: 0;
+}
+
+#button-submit:hover {
+    box-shadow: 0 0 2px grey;
+    cursor: pointer;
+    color: white;
+}
+
+#last-line-text {
+    font-size: 11px;
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: normal;
+    font-style: italic;
+    text-align: center;
+    color:rgb(131, 131, 131);
+    margin-top: 42px;
+}
+
+#pic {
+    width: 322px;
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+    box-shadow: 0px 0px 20px rgb(41, 41, 41);
+}
+
+
+#grid-container {
+    display: grid;
+    grid-template-columns: 700px 400px;
+    margin-top: 100px;
+}
+
+#side-container {
+    align-self: center;
+    z-index: -1;
+}
+
+#main-container {
+    justify-self: end;
+}
+
+
+
