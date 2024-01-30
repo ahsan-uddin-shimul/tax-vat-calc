@@ -431,7 +431,7 @@ table {
 }
 
 #rateTax-feed, #rateTax-feed-opt2, #rateTax-feed-opt3 {
-    width: 8px;
+    width: 10px;
     font-size: 12px;
     background-color: rgb(236, 236, 236);
     border: none;
