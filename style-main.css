@@ -431,11 +431,11 @@ table {
 }
 
 #rateTax-feed, #rateTax-feed-opt2, #rateTax-feed-opt3 {
-    width: 10px;
+    width: 12px;
     font-size: 12px;
     background-color: rgb(236, 236, 236);
     border: none;
-    margin-left: 60px;
+    margin-left: 50px;
     outline: none;
 }
 
